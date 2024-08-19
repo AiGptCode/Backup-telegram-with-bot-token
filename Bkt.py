@@ -1,7 +1,7 @@
 import os
 import logging
 from telegram import Update
-from telegram.ext import Updater, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
+from telegram.ext import Updater, MessageHandler, Filters, CallbackContext
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -153,7 +153,7 @@ async def backup_message(update: Update, context: CallbackContext) -> None:
         logger.error(f"Error while processing message: {e}")
 
 # Setup and run bot
-def main() -> None:
+async def main():
     updater = Updater(BOT_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(MessageHandler(Filters.text | Filters.photo | Filters.video | Filters.document | Filters.voice | Filters.audio | Filters.animation | Filters.sticker, backup_message))
